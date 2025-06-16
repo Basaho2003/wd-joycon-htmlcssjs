@@ -4,10 +4,99 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>JoyCon</title>
 </head>
 <body>
-    <!-- buat komponen yang menggambarkan controller @MUTAMA -->
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JoyCon</title>
+</head>
+<body>
+
+  <!-- Text screen utama -->
+  <div class="screen" id="screen" >Tekan tombol</div>
+
+  <!-- Controller -->
+  <div class="controller">
+    <!-- Tombol arah -->
+    <div class="left">
+      <div class="dpad">
+        <button class="btn up" data-action="Atas">↑</button>
+        <button class="btn leftb" data-action="Kiri">←</button>
+        <button class="btn rightb" data-action="Kanan">→</button>
+        <button class="btn down" data-action="Bawah">↓</button>
+      </div>
+    </div>
+
+    <!-- Tombol aksi -->
+    <div class="right">
+      <div class="action-buttons">
+        <button class="btn" data-action="B">B</button>
+        <button class="btn" data-action="A">A</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    NIM: 12345678 | Nama: Julianus Gunapm Basaho | 
+    <a href="https://github.com/Basaho2003" target="_blank">GitHub</a>
+  </div>
+
+  <script>
+    const screen = document.getElementById('screen');
+    const buttons = document.querySelectorAll('.btn');
+
+    // Fungsi untuk menampilkan teks dan animasi
+    function handleAction(action, btnEl = null) {
+      screen.textContent = action;
+
+      if (btnEl) {
+        btnEl.classList.add('active');
+        setTimeout(() => btnEl.classList.remove('active'), 200);
+      }
+    }
+
+    // Event listener tombol klik
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        handleAction(button.dataset.action, button);
+      });
+    });
+
+    // Event keyboard
+    document.addEventListener('keydown', (e) => {
+      const key = e.key.toLowerCase();
+      let action = '';
+      let btnEl = null;
+
+      switch (key) {
+        case 'arrowup': action = 'Atas'; break;
+        case 'arrowdown': action = 'Bawah'; break;
+        case 'arrowleft': action = 'Kiri'; break;
+        case 'arrowright': action = 'Kanan'; break;
+        case 'a': action = 'A'; break;
+        case 'b': action = 'B'; break;
+      }
+
+      if (action) {
+        btnEl = Array.from(buttons).find(btn => btn.dataset.action === action);
+        handleAction(action, btnEl);
+      }
+    });
+  </script>
+</body>
+</html>
+
+</body>
+</html>
+
+ <!-- buat komponen yang menggambarkan controller @MUTAMA -->
     <!--    [^]                -->
     <!-- [<][v][>]      [B][A] -->
     <!--           atau        -->
@@ -43,5 +132,3 @@
     <!--  -->
     <!-- kamu boleh menambahkan sprite di samping textscreen yang sudah ada @POINPLUS -->
     <!-- di ujung kanan bawah, tambahkan informasi NIM, nama, dan link Github @UTAMA -->
-</body>
-</html>
